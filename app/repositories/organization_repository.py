@@ -1,6 +1,3 @@
-"""
-Репозиторий для работы с организациями.
-"""
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
 from app.models import Organization, Activity

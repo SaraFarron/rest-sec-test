@@ -1,7 +1,3 @@
-"""
-Главный модуль FastAPI приложения.
-Organization Directory API - справочник организаций, зданий и деятельностей.
-"""
 import logging
 import time
 from contextlib import asynccontextmanager
@@ -11,7 +7,6 @@ from fastapi.exceptions import RequestValidationError
 from app.core.config import get_settings
 from app.routers import buildings_router, activities_router, organizations_router
 
-# Настройка логирования
 settings = get_settings()
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL),
@@ -28,7 +23,6 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down Organization Directory API...")
 
 
-# Создание приложения
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
@@ -57,7 +51,6 @@ REST API сервис-справочник для управления:
 )
 
 
-# Middleware для логирования запросов
 @app.middleware("http")
 async def log_requests(request: Request, call_next):
     """Логирование всех HTTP запросов."""
@@ -78,7 +71,6 @@ async def log_requests(request: Request, call_next):
     return response
 
 
-# Обработчик ошибок валидации
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     """Обработка ошибок валидации Pydantic."""
@@ -89,7 +81,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     )
 
 
-# Глобальный обработчик исключений
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """Глобальный обработчик непредвиденных ошибок."""
@@ -100,13 +91,11 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
-# Подключение роутеров
 app.include_router(buildings_router, prefix="/api/v1")
 app.include_router(activities_router, prefix="/api/v1")
 app.include_router(organizations_router, prefix="/api/v1")
 
 
-# Health check эндпоинт (без аутентификации)
 @app.get(
     "/health",
     tags=["Health"],

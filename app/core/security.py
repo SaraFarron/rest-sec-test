@@ -1,6 +1,3 @@
-"""
-Модуль безопасности - проверка API ключа.
-"""
 from fastapi import HTTPException, Security, status
 from fastapi.security import APIKeyHeader
 from app.core.config import get_settings

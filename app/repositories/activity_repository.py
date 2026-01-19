@@ -1,6 +1,3 @@
-"""
-Репозиторий для работы с деятельностями.
-"""
 from sqlalchemy.orm import Session
 from app.models import Activity
 from app.schemas import ActivityCreate

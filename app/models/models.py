@@ -1,6 +1,3 @@
-"""
-SQLAlchemy модели для базы данных.
-"""
 import json
 from sqlalchemy import (
     Column, Integer, String, Float, ForeignKey, Table, CheckConstraint, Index, Text

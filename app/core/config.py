@@ -1,7 +1,3 @@
-"""
-Модуль конфигурации приложения.
-Все настройки загружаются из переменных окружения.
-"""
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 

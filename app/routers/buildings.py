@@ -1,6 +1,3 @@
-"""
-Роутер для работы со зданиями.
-"""
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from app.core import get_db, verify_api_key

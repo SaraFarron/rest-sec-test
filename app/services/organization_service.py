@@ -1,7 +1,3 @@
-"""
-Сервис для работы с организациями.
-Содержит бизнес-логику, объединяющую работу нескольких репозиториев.
-"""
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from app.repositories import (

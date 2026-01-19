@@ -1,6 +1,3 @@
-"""
-Роутер для работы с организациями.
-"""
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.orm import Session
 from app.core import get_db, verify_api_key

@@ -1,11 +1,5 @@
-"""
-Pydantic схемы для валидации данных.
-"""
-from typing import Optional
 from pydantic import BaseModel, Field, field_validator
 
-
-# ==================== Building Schemas ====================
 
 class BuildingBase(BaseModel):
     """Базовая схема здания."""
@@ -27,12 +21,10 @@ class BuildingResponse(BuildingBase):
         from_attributes = True
 
 
-# ==================== Activity Schemas ====================
-
 class ActivityBase(BaseModel):
     """Базовая схема деятельности."""
     name: str = Field(..., min_length=1, max_length=255, description="Название деятельности")
-    parent_id: Optional[int] = Field(None, description="ID родительской деятельности")
+    parent_id: int | None = Field(None, description="ID родительской деятельности")
 
 
 class ActivityCreate(ActivityBase):
@@ -44,7 +36,7 @@ class ActivityResponse(BaseModel):
     """Схема ответа для деятельности."""
     id: int
     name: str
-    parent_id: Optional[int]
+    parent_id: int | None
     level: int
 
     class Config:
@@ -55,8 +47,6 @@ class ActivityWithChildren(ActivityResponse):
     """Схема деятельности с дочерними элементами."""
     children: list["ActivityWithChildren"] = []
 
-
-# ==================== Organization Schemas ====================
 
 class OrganizationBase(BaseModel):
     """Базовая схема организации."""
@@ -85,10 +75,10 @@ class OrganizationCreate(OrganizationBase):
 
 class OrganizationUpdate(BaseModel):
     """Схема для обновления организации."""
-    name: Optional[str] = Field(None, min_length=1, max_length=500)
-    phone_numbers: Optional[list[str]] = Field(None, min_length=1)
-    building_id: Optional[int] = None
-    activity_ids: Optional[list[int]] = None
+    name: str | None = Field(None, min_length=1, max_length=500)
+    phone_numbers: list[str] | None = Field(None, min_length=1)
+    building_id: int | None = None
+    activity_ids: list[int] | None = None
 
 
 class OrganizationResponse(BaseModel):
@@ -113,8 +103,6 @@ class OrganizationListResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-# ==================== Query Schemas ====================
 
 class GeoRadiusQuery(BaseModel):
     """Схема для поиска в радиусе от точки."""
@@ -146,8 +134,6 @@ class GeoBoundingBoxQuery(BaseModel):
             raise ValueError("max_lon должна быть >= min_lon")
         return v
 
-
-# ==================== Error Schemas ====================
 
 class ErrorResponse(BaseModel):
     """Схема ответа при ошибке."""

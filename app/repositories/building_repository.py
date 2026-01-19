@@ -1,6 +1,3 @@
-"""
-Репозиторий для работы со зданиями.
-"""
 from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from app.models import Building
